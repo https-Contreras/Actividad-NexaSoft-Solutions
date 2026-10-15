@@ -8,8 +8,6 @@ class GestorIncidencias {
 
   Future<void> iniciar() async {
     incidencias = await datos.leer();
-    cantidadPendientes =
-        incidencias.where((x) => x.estado == 'Pendiente').length;
   }
 
   List<Incidencia> buscar(String texto) {
@@ -30,7 +28,7 @@ class GestorIncidencias {
   }
 
   int contar(String estado) {
-    if (estado == 'Pendiente') return cantidadPendientes;
+    if (estado == 'Pendiente')  return (cantidadPendientes = incidencias.where((x) => x.estado == 'Pendiente').length);
     return incidencias.where((x) => x.estado == estado).length;
   }
 
