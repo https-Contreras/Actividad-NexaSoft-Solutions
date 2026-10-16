@@ -15,4 +15,20 @@ void main() {
     expect(registro.id, 'INC-DEMO');
     expect(registro.toJson()['estado'], 'Pendiente');
   });
+
+  test('Una incidencia antigua sin prioridad usa Media', () {
+    final registro = Incidencia.desdeJson({
+      'id': 'INC-DEMO',
+      'titulo': 'Prueba',
+      'estado': 'Pendiente',
+    });
+    expect(registro.prioridad, 'Media');
+    expect(registro.toJson()['prioridad'], 'Media');
+  });
+
+  test('Solo se aceptan prioridades Baja, Media o Alta', () {
+    expect(Incidencia.desdeJson({'prioridad': 'Alta'}).prioridad, 'Alta');
+    expect(Incidencia.desdeJson({'prioridad': 'Baja'}).prioridad, 'Baja');
+    expect(Incidencia.desdeJson({'prioridad': 'Urgente'}).prioridad, 'Media');
+  });
 }
